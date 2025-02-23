@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  express:
+    container_name: slidedrip_express
+    build: ./backend/express-backend
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./backend/express-backend/.env
+    volumes:
+      - ./backend/express-backend:/app
+      - /app/node_modules
+    depends_on:
+      - fastapi
+
+  fastapi:
+    container_name: slidedrip_fastapi
+    build: ./backend/fastapi-text-service
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/fastapi-text-service:/app
+      - /app/__pycache__
