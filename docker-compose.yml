@@ -13,6 +13,9 @@ services:
       - /app/node_modules
     depends_on:
       - fastapi
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
 
   fastapi:
     container_name: slidedrip_fastapi
