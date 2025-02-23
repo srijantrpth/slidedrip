@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "@google/generative-ai": "^0.21.0",
+    "@langchain/core": "^0.3.40",
     "axios": "^1.7.9",
     "bcrypt": "^5.1.1",
     "cookie-parser": "^1.4.7",
@@ -9,10 +9,11 @@
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
     "langchain": "^0.3.19",
-    "mammoth": "^1.9.0",
     "mongoose": "^8.10.1",
     "multer": "^1.4.5-lts.1",
-    "officeparser": "^5.1.1"
+    "node-fetch": "^3.3.2",
+    "pdf2json": "^3.1.5",
+    "pptx-text-parser": "^1.1.1"
   },
   "devDependencies": {
     "nodemon": "^3.1.9",

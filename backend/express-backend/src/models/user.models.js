@@ -45,11 +45,15 @@ const userSchema = new Schema(
 
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
-  this.password = await bcrypt.hash(this.password, 22);
+  this.password = await bcrypt.hash(this.password, 10);
   next();
 });
 userSchema.methods.isPasswordCorrect = async function (password) {
-  await bcrypt.compare(password, this.password);
+  console.log(`Password: ${password} and this.password: ${this.password}`);
+  
+  const result = await bcrypt.compare(password, this.password);
+  return result
+  
 };
 userSchema.methods.generateAccessToken = function () {
   return jwt.sign(
