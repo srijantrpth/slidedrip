@@ -1,7 +1,3 @@
-Here is a complete README file for your `srijantrpth/slidedrip` repository:
-
----
-
 # SlideDrip
 
 SlideDrip is your one-stop solution to conquer your college exams, whether it is the Mid Sems or the End Sems. Just upload your PPTs in a single click and learn in an interactive way by reading flashcards and essential notes from those lengthy PPTs.
