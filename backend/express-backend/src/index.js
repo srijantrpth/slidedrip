@@ -5,7 +5,7 @@ dotenv.config({
 
 import { app } from "./app.js";
 import connectDB from "./db/index.js";
-
+import redis from './db/redisClient.js'
 connectDB()
   .then(() => {
     app.listen(process.env.PORT, () => {
@@ -16,5 +16,11 @@ connectDB()
     console.log(`MongoDB Connection Failed: ${err}`);
     process.exit(1);
   });
+redis.on('connect', () => {
+  console.log(`Redis Connection Succesful! `);
 
-  
+}).on('error', (err) => {
+  console.log(`Redis Connection Failed: ${err}`);
+})
+redis.ping().then((result) => console.log(`Redis Ping Result: ${result}`)).catch((err) => console.log(`Redis Connection Failed: ${err}`))
+

@@ -13,6 +13,7 @@ services:
       - /app/node_modules
     depends_on:
       - fastapi
+      - redis   # Add dependency on Redis
     dns:
       - 8.8.8.8
       - 8.8.4.4
@@ -25,3 +26,16 @@ services:
     volumes:
       - ./backend/fastapi-text-service:/app
       - /app/__pycache__
+
+  redis:           
+    image: "redis:alpine"
+    container_name: slidedrip_redis
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+
+volumes:          
+  redis_data:     
+    driver: local
