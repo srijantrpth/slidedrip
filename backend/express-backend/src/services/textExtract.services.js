@@ -7,7 +7,7 @@ export const textRead = async (file) => {
         filename: file.originalname,
         contentType: file.mimetype
     })
-    const response = await axios.post('http://slidedrip_fastapi:8000/api/v1/extract',formData,
+    const response = await axios.post(`${process.env.FASTAPI_HOST}:${process.env.FASTAPI_PORT}/api/v1/extract`,formData,
         {
             headers: {
                 ...formData.getHeaders()
