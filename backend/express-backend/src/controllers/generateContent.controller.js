@@ -3,27 +3,23 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { ApiError } from "../utils/ApiError.js";
 import { textRead } from "../services/textExtract.services.js";
 import { generateWithGemini } from "../utils/gemini.js";
-
 const generateFlashcards = asyncHandler(async (req, res) => {
+
+  const { service } = req.body;
   const files = req.files;
-  const { type } = req.body;
- const {_id} = req.user
-  if (!_id) {
-    throw new ApiError(
-      400,
-      "User must be Logged In to Perform this Operation! "
-    );
-  }
+
+
   if (!files || (!files.PPT && !files.PDF)) {
     throw new ApiError(400, "Please upload a file");
   }
 
-  if (!type || !["Questions", "Summary"].includes(type)) {
+  if (!service || !["Questions", "Summary"].includes(service)) {
     throw new ApiError(400, "Invalid Content Type Requested");
   }
 
   try {
     let combinedText = "";
+
 
     if (files.PPT?.[0]) {
       const pptText = await textRead(files.PPT[0]);
@@ -44,7 +40,7 @@ const generateFlashcards = asyncHandler(async (req, res) => {
 
     let generatedContent;
     try {
-      generatedContent = await generateWithGemini(combinedText, type);
+      generatedContent = await generateWithGemini(combinedText, service);
     } catch (error) {
       throw new ApiError(
         503,
@@ -58,7 +54,7 @@ const generateFlashcards = asyncHandler(async (req, res) => {
         new ApiResponse(
           200,
           { content: generatedContent },
-          `${type} generated successfully`
+          `${service} generated successfully`
         )
       );
   } catch (error) {
