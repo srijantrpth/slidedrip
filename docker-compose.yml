@@ -7,16 +7,18 @@ services:
     ports:
       - "5000:5000"
     env_file:
-      - ./backend/express-backend/.env
+      - ./.env
     volumes:
       - ./backend/express-backend:/app
       - /app/node_modules
     depends_on:
       - fastapi
-      - redis   # Add dependency on Redis
+      - redis
     dns:
       - 8.8.8.8
       - 8.8.4.4
+    networks:
+      - slidedrip_network
 
   fastapi:
     container_name: slidedrip_fastapi
@@ -26,6 +28,8 @@ services:
     volumes:
       - ./backend/fastapi-text-service:/app
       - /app/__pycache__
+    networks:
+      - slidedrip_network
 
   redis:           
     image: "redis:alpine"
@@ -35,6 +39,12 @@ services:
     command: redis-server --appendonly yes
     volumes:
       - redis_data:/data
+    networks:
+      - slidedrip_network
+
+networks:
+  slidedrip_network:
+    driver: bridge
 
 volumes:          
   redis_data:     
