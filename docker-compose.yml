@@ -3,31 +3,28 @@ version: "3.8"
 services:
   express:
     container_name: slidedrip_express
-    build: ./backend/express-backend
+    build: 
+      context: ./backend/express-backend
     ports:
       - "5000:5000"
     env_file:
       - ./.env
     volumes:
       - ./backend/express-backend:/app
-      - /app/node_modules
     depends_on:
       - fastapi
       - redis
-    dns:
-      - 8.8.8.8
-      - 8.8.4.4
     networks:
       - slidedrip_network
 
   fastapi:
     container_name: slidedrip_fastapi
-    build: ./backend/fastapi-text-service
+    build: 
+      context: ./backend/fastapi-text-service
     ports:
       - "8000:8000"
     volumes:
       - ./backend/fastapi-text-service:/app
-      - /app/__pycache__
     networks:
       - slidedrip_network
 
@@ -36,9 +33,6 @@ services:
     container_name: slidedrip_redis
     ports:
       - "6379:6379"
-    command: redis-server --appendonly yes
-    volumes:
-      - redis_data:/data
     networks:
       - slidedrip_network
 
