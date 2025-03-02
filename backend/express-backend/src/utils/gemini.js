@@ -9,8 +9,8 @@ const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 export const generateWithGemini = async (text, type, retryCount = 0) => {
     try {
         const prompt = type === "Questions" 
-            ? `Create around 25 short questions such as for Viva based on the content also don't consider course objectives like C01 or C02 and you can also provide a programming question on your own based on the text given from anywhere else the text is: ${text}`
-            : `Provide a concise academic summary extracting key points from: ${text}`;
+            ? `Create 25 tricky Viva Questions from the topics covered in given ${text} You do not need to be strictly restricted to the text you can create your own programming or logical questions as well but strictly defined from the topics in the text `
+            : `Provide a nice academic from: ${text} make sure you cover everything as it is for the final exams`;
 
         const response = await fetch(`${GEMINI_API_ENDPOINT}?key=${process.env.GEMINI_API_KEY}`, {
             method: 'POST',
